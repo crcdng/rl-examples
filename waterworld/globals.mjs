@@ -1,8 +1,9 @@
-import { action, DQNAgent }  from "./dqnagent.mjs";
-import WaterWorld from "./waterworld.mjs";
+import { DQNAgent }  from "./dqnagent.mjs";
+import { Agent, World } from "./waterworld.mjs";
 
 // hack, as p5.js does not support ES6 modules
 // when it does, move the above imports into sketch.js and remove this file
-window.action = action;
+
+window.Agent = Agent;
 window.DQNAgent = DQNAgent;
-window.WaterWorld = WaterWorld;
+window.WaterWorld = World;

@@ -1,25 +1,41 @@
-let agent, env;
+let dqnAgentConfig, world;
 let epsilonSld, intervalId, loadBtn, reinitBtn, speedSel;
 
 function setup () {
   setupUI();
-  const environmentConfig = {
 
+  dqnAgentConfig = {
+    update: "qlearn", // qlearn | sarsa
+    gamma: 0.9, // discount factor, [0, 1)
+    epsilon: 0.2, // initial epsilon for epsilon-greedy policy, [0, 1)
+    alpha: 0.005, // value function learning rate
+    experience_add_every: 5, // number of time steps before we add another experience to replay memory
+    experience_size: 10000, // size of experience
+    learning_steps_per_iteration: 5,
+    tderror_clamp: 1.0, // for robustness
+    num_hidden_units: 100 // number of neurons in hidden layer
   };
-  env = new WaterWorld(environmentConfig);
-  agent = new DQNAgent(env, 0.9);
+
+  world = new WaterWorld({w: width, h: height}, new Agent(new DQNAgent(dqnAgentConfig)));
+  console.log(world);
 }
 
 function draw () {
   background(243);
+  world.update();
+  for (const item of world.items) {
+    fill(item.type === "food" ? "green" : "red");
+    circle(item.pos.x, item.pos.y, item.radius);
+  }
 }
 
 function load () {
-  console.log("load");
+  console.log("load: not implemented yet"); // TODO
 }
 
-function reinit () {
+function reinit () { // implants a fresh brain
   console.log("reinit");
+  world.agent.brain = new DQNAgent(dqnAgentConfig);
 }
 
 function selectSpeed () {
@@ -27,12 +43,16 @@ function selectSpeed () {
   console.log(item);
   switch(item) {
   case "very fast":
+    console.log("very fast: not implemented yet"); // TODO
     break;
   case "fast":
+    console.log("fast: not implemented yet"); // TODO
     break;
   case "normal":
+    frameRate(60);
     break;
   case "slow":
+    frameRate(15);
     break;
   default:
     break;
@@ -46,6 +66,7 @@ function selectSpeed () {
 function setEpsilon () {
   const value = epsilonSld.value();
   console.log(value);
+  world.agent.brain.epsilon = value;
 }
 
 function setupUI () {

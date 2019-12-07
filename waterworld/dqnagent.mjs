@@ -1,28 +1,18 @@
-const action = {
-
-};
+const defaultConfig = {}
 
 class DQNAgent {
-  constructor (env, gamma) {
-    this.env = env;
-    this.gamma = gamma;
+  constructor(config = defaultConfig) {
+    this.config = config;
     this.reset();
   }
 
-  act () {
-
-  }
+  act() {}
 
   // learn :: ->
-  learn () {
-
-  }
+  learn() {}
 
   // reset :: ->
-  reset () {
-    
-  }
-
+  reset() {}
 }
 
-export { action, DQNAgent };
+export { DQNAgent };
