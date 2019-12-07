@@ -68,7 +68,7 @@ export default class GridWorld {
   // reward :: State -> Reward
   reward (s) { return this.rewards[s]; }
 
-  // nextState :: State -> Action -> OutObject
+  // sampleNextState :: State -> Action -> OutObject
   sampleNextState (s, a) {
     const ns = this.nextState(s, a);
     let reward = this.rewards[s];

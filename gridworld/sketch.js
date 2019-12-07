@@ -131,7 +131,10 @@ function selectCell (index, current) {
 
 function setCellReward () {
   if (selectedCell == null) { return; }
-  agent.values[selectedCell] = rewardSld.value();
+  const value = rewardSld.value();
+  const text = `Cell Reward: ${nf(value, 1, 1)} `;
+  select("#rewardtext").html(text);
+  agent.values[selectedCell] = value;
 }
 
 function setupUI () {
